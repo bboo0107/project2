@@ -429,6 +429,14 @@ public class BoardService {
 		int end = page * pagePerCnt;
 		int start = end - pagePerCnt+1;
 		
+		ArrayList<BoardDTO> list= dao.listCall(start,end,type);
+		
+		for(BoardDTO dto : list) {
+			String idx = Integer.toString(dto.getBoard_idx());
+			int com = dao.comAllCount(idx);
+			dto.setCom_total(com);
+		}
+		
 		json.put("keyword", keyword);
 		json.put("currPage",page);
 		json.put("range", range);

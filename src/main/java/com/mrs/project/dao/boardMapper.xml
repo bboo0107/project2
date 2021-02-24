@@ -140,10 +140,11 @@
 	</sql>
 	
 	<select id="resultpaging" resultType="board">
-		SELECT rnum,board_idx,board_type,id,subject,content,bHit,reg_date FROM(SELECT ROW_NUMBER() OVER(ORDER BY board_idx DESC) AS rnum
-	    ,board_idx,board_type,id,subject,content,bHit,reg_date FROM(SELECT * FROM market_board  <include refid="search"></include> AND board_type=#{param3}
+		SELECT rnum,board_idx,board_type,id,subject,content,bHit,reg_date, private_bbs, bchk FROM(SELECT ROW_NUMBER() OVER(ORDER BY board_idx DESC) AS rnum
+	    ,board_idx,board_type,id,subject,content,bHit,reg_date, private_bbs, bchk FROM(SELECT * FROM market_board  <include refid="search"></include> AND board_type=#{param3}
       ORDER BY board_idx DESC))WHERE rnum BETWEEN#{param1} AND #{param2}
 	</select>
+
 
 	
 </mapper>

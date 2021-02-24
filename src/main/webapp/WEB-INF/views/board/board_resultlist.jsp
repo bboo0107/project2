@@ -166,11 +166,39 @@
 	function listPrint(list){
 		console.log(list);
 		var content = "";
+		var bchk = "";
+		var private_bbs = "";
+		
 		list.forEach(function(list){
-			content += "<tr>";
+			/* content += "<tr>";
 			 content += "<td style='text-align: center;'>"+list.board_idx+"</td>";
 			 content += "<td><a href='detail?idx="+list.board_idx+"&type="+list.board_type+"&pri="+list.private_bbs+"'>"+list.subject+"</a></td>"; 
-			
+			 */
+			 content += "<tr>";
+				content += "<td style='text-align: center; '>" + list.board_idx + "</td>";
+				if (list.board_type == 1) { // 고객센터일때
+					if (list.bchk == 0) { // 댓글확인여부 Y랑 N 띄우기
+						bchk = "N";
+					} else {
+						bchk = "Y";
+					}
+					if (list.private_bbs == 1) { //비밀글 여부
+						private_bbs = "비밀글";
+						content += "<td>&nbsp;&nbsp;&nbsp;(" + private_bbs + ")<a href='detail?idx="
+								+ list.board_idx + "&type=" + list.board_type
+								+ "&pri=" + list.private_bbs + "'>" + list.subject
+								+ "</a> [" + bchk + "]</td>";
+					} else {
+						content += "<td><a href='detail?idx=" + list.board_idx
+								+ "&type=" + list.board_type + "&pri="
+								+ list.private_bbs + "'>&nbsp;&nbsp;&nbsp;" + list.subject + "</a> ["
+								+ bchk + "]</td>";
+					}
+				} else {
+					content += "<td><a href='detail?idx=" + list.board_idx
+							+ "&type=" + list.board_type + "&pri="
+							+ list.private_bbs + "'>&nbsp;&nbsp;&nbsp;" + list.subject + "</a> ["+list.com_total+"]</td>";
+				}
 			 content += "<td style='text-align: center; '>"+list.id+"</td>";
 			 var date = new Date(list.reg_date);
 			 content += "<td style='text-align: center; '>"+date.toLocaleDateString("ko-KR")+"</td>";
